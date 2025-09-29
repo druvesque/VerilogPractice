@@ -1,3 +1,4 @@
+// GATE-LEVEL IMPLEMENTATION
 module half_adder(sum, carry, a, b);
     output sum, carry;
     input a, b;
