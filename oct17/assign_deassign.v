@@ -1,6 +1,6 @@
 module dflop(preset, clear, q, clk, d);
     input preset, clear, clk, d;
-    output reg q;
+    output reg q; //only on registers
 
     always @(clear, preset) begin
         if(!clear)
