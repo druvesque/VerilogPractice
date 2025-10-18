@@ -1,3 +1,5 @@
+`timescale 10 us / 100 ns
+`resetall
 module full_adder_gen(sum, c_out, a, b, c_in);
     parameter SIZE = 4;
     output [SIZE-1:0] sum;
@@ -37,7 +39,8 @@ module tb;
     end
 
     initial begin
-        $monitor("Time: %g, A: %d, B: %d, C_in: %b, Sum: %d, C_out: %b", $time, a, b, c_in, sum, c_out);
+        $printtimescale;
+        $monitor("Time: %t, A: %d, B: %d, C_in: %b, Sum: %d, C_out: %b", $time, a, b, c_in, sum, c_out);
         #200 $finish;
     end
 endmodule
