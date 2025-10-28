@@ -13,7 +13,7 @@ module linear_simple_fifo(
     reg [3:0] write_ptr, rd_ptr;
     integer i;
 
-    always @(posedge clk) begin: behaviour_fifo
+    always @(posedge clk) begin: fifo_rw
 
         if (!rst) begin
             for (i = 0; i < 8; i = i+1) begin
@@ -35,6 +35,11 @@ module linear_simple_fifo(
             empty = (write_ptr == read_ptr);
         end
         
-    end: behaviour_fifo
+    end: fifo_rw
+
+    always @(posedge clk) begin: empty_full
+
+        if (wri
+    end: empty_full
 
 endmodule
