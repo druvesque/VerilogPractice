@@ -1,0 +1,40 @@
+module tb;
+reg o1, o2, o3, o4, o5, o6, in;
+
+always @(in)
+    o1 = in;
+
+always @(in)
+    o2 <= in;
+
+always @(in)
+    #5 o3 = in;
+
+always @(in)
+    #5 o4 <= in
+
+always @(in)
+    o5 = #5 in;
+
+always @(in)
+    o6 <= #5 in;
+
+initial begin
+    in = 0;
+    #5 in = 1;
+    #15 in = 0;
+    #12 in = 1;
+    #3 in = 0;
+    #10 in = 1;
+    #5 in = 0;
+end
+
+initial begin
+    $dumpfile("wv.vcd");
+    $dumpvars(0, tb);
+
+    #100;
+    $finish;
+end
+
+endmodule

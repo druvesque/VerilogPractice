@@ -1,0 +1,51 @@
+$date
+	Tue Sep 30 10:42:30 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb $end
+$var wire 8 ! sum [7:0] $end
+$var wire 1 " c_out $end
+$var parameter 32 # width $end
+$var reg 8 $ a [7:0] $end
+$var reg 8 % b [7:0] $end
+$var reg 1 & c_in $end
+$scope module a1 $end
+$var wire 8 ' a [7:0] $end
+$var wire 8 ( b [7:0] $end
+$var wire 1 & c_in $end
+$var wire 8 ) sum [7:0] $end
+$var wire 1 " c_out $end
+$var parameter 32 * width $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000 *
+b1000 #
+$end
+#0
+$dumpvars
+b1101 )
+b1000 (
+b101 '
+0&
+b1000 %
+b101 $
+0"
+b1101 !
+$end
+#10
+b10001 !
+b10001 )
+1&
+b1001 %
+b1001 (
+b111 $
+b111 '
+#200

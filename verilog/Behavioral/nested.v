@@ -1,0 +1,24 @@
+module tb;
+    reg a,b;
+    reg [1:0] c;
+    reg [2:0] d;
+
+    initial begin
+        a = 1'b0;
+        #10 b = 1'b1;
+        fork
+            #5 b = 1'b0;
+            #10 c = {a,b};
+        join
+        #20 d = {a,c};
+    end
+
+    initial begin
+        $monitor("Time: %t, A: %b, B: %b, C: %b, D: %b", $time, a, b, c, d);
+
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+
+        #60 $finish;
+    end
+endmodule

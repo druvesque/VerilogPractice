@@ -1,0 +1,44 @@
+module delay22(q, a, b, c, d);
+output q;
+input a, b, c, d;
+wire e, f;
+
+specify
+    (a=>q) = 10;
+    (b=>q) = 12;
+    (c=>q) = 18; 
+    (d=>q) = 22;
+endspecify
+
+and a1(e, a, b);
+and a2(f, c, d);
+and a3(q, e, f);
+endmodule
+
+module tb;
+reg a, b, c, d;
+wire q;
+delay22 d2(q, a, b, c, d);
+
+initial begin
+    {a, b, c, d} = 4'b1111;
+    #25 {a, b, c, d} = 4'b1110;
+    #25 {a, b, c, d} = 4'b1111;
+    #25 {a, b, c, d} = 4'b1101;
+    #25 {a, b, c, d} = 4'b1111;
+    #25 {a, b, c, d} = 4'b1011;
+    #25 {a, b, c, d} = 4'b1111;
+    #25 {a, b, c, d} = 4'b0111;
+    #25 {a, b, c, d} = 4'b1111;
+end
+
+initial begin
+    $monitor("Time: %t, A: %b, B: %b, C: %b, D: %b, Output: %b", $time, a, b, c, d, q);
+
+    $dumpfile("wv.vcd");
+    $dumpvars(0, tb);
+
+    #200;
+    $finish;
+end
+endmodule

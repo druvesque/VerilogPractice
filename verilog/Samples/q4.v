@@ -1,0 +1,37 @@
+module model(in, out, clk);
+input in, clk;
+output  reg out;
+reg a, b, c;
+
+always @(posedge clk)
+begin
+    a <= in;
+    b <= a;
+    c <= b;
+    out <= c;
+end
+endmodule
+
+module tb;
+reg in;
+reg clk = 0;
+wire out;
+model m1(in, out, clk);
+
+initial 
+    forever #5 clk = ~clk;
+
+initial begin
+    in = 1;
+end
+
+initial begin
+    $monitor("Time: %g, Input: %b, Output: %b", $time, in, out);
+
+    $dumpfile("wv.vcd");
+    $dumpvars(0, tb);
+
+    #100;
+    $finish;
+end
+endmodule

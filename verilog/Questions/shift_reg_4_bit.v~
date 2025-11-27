@@ -1,0 +1,77 @@
+module shift_reg_4_bit(q, clk, d_in, load, reset, shift_right, shift_count);
+    output reg [3:0] q;
+    input [3:0] d_in;
+    input clk, load, reset, shift_right, shift_count;
+    reg [3:0] pseudo_output;
+
+    always @(pseudo_output, shift_right, load) begin
+        if(load)
+            pseudo_output = d_in;
+        else if(shift_right)
+            pseudo_output = pseudo_output >> shift_count;
+        else if(!shift_right)
+            pseudo_output = pseudo_output << shift_count;
+        else 
+            pseudo_output = pseudo_output;
+    end
+
+    always @(posedge clk) begin
+        if(reset) 
+            q <= 4'b0000;
+        else
+            q <= pseudo_output;
+    end
+endmodule
+
+module shift_reg_4_bit(
+    input clk, load, shift_right, reset,
+    input [1:0] shift_count,
+    input [3:0] d_in,
+    output reg [3:0] q
+);
+    always @(posedge clk) begin
+        if(reset)
+            q <= 4'b0000;
+        else if(load)
+            q <= d_in;
+        else if(shift_right)
+            q <= q >> shift_count;
+        else if(!shift_right)
+            q <= q << shift_count;
+        else
+            q <= q;
+    end
+
+endmodule
+
+module tb;
+    reg clk = 0;
+    reg [3:0] d_in;
+    reg load, reset, shift_right, shift_count;
+    wire [3:0] q;
+
+    shift_reg_4_bit r1(.q(q), .clk(clk), .d_in(d_in), .load(load), .shift_right(shift_right), .shift_count(shift_count), .reset(reset));
+
+    initial 
+        forever #10 clk = ~clk;
+
+    initial begin
+        // 1st posedge (sampling) happens at 10ns, so we sample the load onto
+        // q on the 1st posedge
+        reset = 1; // this will be sampled at 10ns
+        #20 reset = 0; d_in = 4'b1010; load = 1; // this will be sampled at 30ns
+        #20 shift_right = 1'b1; shift_count = 1'b1; load = 0; // this will be sampled at 50ns
+            
+    end
+
+    initial begin
+        $monitor("Time: %g, Input: %b, Shift_Right: %b, Shift_Count: %d, Output: %b", $time, d_in, shift_right, shift_count, q);
+
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+
+        #200;
+        $finish;
+    end
+
+endmodule

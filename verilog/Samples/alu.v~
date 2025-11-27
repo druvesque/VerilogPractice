@@ -1,0 +1,46 @@
+module alu(result, a, b, sel, enable);
+    output reg[15:0] result;
+    input [3:0] a, b;
+    input [2:0] sel;
+    input enable;
+
+    always @(posedge enable)
+    begin
+        if(sel == 2'b00)
+            result = a+b;
+        else if(sel == 2'b01)
+            result = a-b;
+        else if (sel == 2'b10)
+            result = a*b;
+        else
+            result = a%b;
+    end
+endmodule
+
+module tb;
+    reg [3:0] a, b;
+    reg [2:0] sel;
+    reg enable = 0;
+    wire [15:0] result;
+    alu a1(result, a, b, sel, enable);
+
+    initial 
+        forever #10 enable = ~enable
+
+    initial begin
+        a = 5; b = 7; sel = 2'b01;
+        #10 a = 10; b = 3; sel = 2'b10;
+        #10 a = 6; b = 2; sel = 2'b11;
+        #10 a = 9; b = 1; sel = 2'b00;
+    end
+
+    initial begin
+        $monitor("Time: %g, A: %d, B: %d, Select: %d, Result: %d", $time, a, b, sel, result);
+
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+
+        #100;
+        $finish;
+    end
+endmodule

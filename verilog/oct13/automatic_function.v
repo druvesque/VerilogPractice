@@ -1,0 +1,28 @@
+module tb;
+    function automatic integer factorial;
+        input [31:0] operand;
+        begin
+            if(operand >= 2)
+            begin
+                factorial = factorial(operand-1) * operand; 
+                $display("Inside the if block");
+                $display("Operand: %d", operand);
+            end
+            else
+            begin
+                $display("Entering the Else Block");
+                factorial = 1;
+            end
+
+        end
+    endfunction
+
+    integer result;
+    integer n;
+    initial begin
+        for(n = 7; n <= 7; n = n+1) begin
+            result = factorial(n);
+            $display("Kiska Factorial? Iska: %d, Output: %d", n, result);
+        end
+    end
+endmodule

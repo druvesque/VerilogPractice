@@ -1,0 +1,36 @@
+module dff(clk, q, d);
+    output reg q;
+    input clk, d;
+    specify 
+        $setuphold(posedge clk, d, 5, 3);
+    endspecify
+
+    always @(posedge clk)
+        q<=d;
+endmodule
+
+module tb;
+    reg clk = 0, d;
+    wire q;
+    dff d1(clk, q, d);
+
+    initial 
+        forever #5 clk = ~clk;
+    
+    initial begin
+        #5 d = 1'b0;
+        #15 d= 1'b0;
+        #12 d = 1'b1;
+        #17 d = 1'b0;
+    end
+
+    initial begin
+        $monitor("Time: %t, D: %b, Q: %b", $time, d, q);
+
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+
+        #200;
+        $finish;
+    end
+endmodule

@@ -1,0 +1,38 @@
+module case_compare;
+    reg sel;
+    initial begin
+        #10 $display("\n Driving 0");
+        sel = 0;
+        #10 $display("\n Driving 1");
+        sel = 1;
+        #10 $display("\n Driving x");
+        sel = 1'bx;
+        #10 $display("\n Driving z");
+        sel = 1'bz;
+        #10 $finish;
+    end
+
+    //always @(sel)
+    //    case (sel)
+    //        1'b0: $display("Time: %g, Normal: Logic 0 on sel", $time);
+    //        1'b1: $display("Time: %g, Normal: Logic 1 on sel", $time);
+    //        1'bx: $display("Time: %g, Normal: Logic x on sel", $time);
+    //        1'bz: $display("Time: %g, Normal: Logic z on sel", $time);            
+    //    endcase
+
+    //always @(sel)
+    //    casex (sel)
+    //        1'b0: $display("Time: %g, CASEX: Logic 0 on sel", $time);
+    //        1'b1: $display("Time: %g, CASEX: Logic 1 on sel", $time);
+    //        1'bx: $display("Time: %g, CASEX: Logic x on sel", $time);
+    //        1'bz: $display("Time: %g, CASEX: Logic z on sel", $time);                       
+    //    endcase
+
+    always @(sel)
+        casez (sel)
+            1'b0: $display("Time: %g, CASEZ: Logic 0 on sel", $time);
+            //1'b1: $display("Time: %g, CASEZ: Logic 1 on sel", $time);
+            //1'bx: $display("Time: %g, CASEZ: Logic x on sel", $time);
+            1'bz: $display("Time: %g, CASEZ: Logic z on sel", $time);                     
+        endcase
+endmodule

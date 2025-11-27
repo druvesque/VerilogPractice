@@ -1,0 +1,46 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000002734e4eee10 .scope module, "tb" "tb" 2 1;
+ .timescale 0 0;
+P_000002734e4eb170 .param/l "size" 0 2 2, +C4<00000000000000000000000000001000>;
+v000002734e4eec70_0 .var "data", 7 0;
+v000002734e4e7bf0_0 .net "parity_bit", 0 0, L_000002734e4eae40;  1 drivers
+S_000002734e405f50 .scope module, "p1" "parity_checker" 2 6, 3 1 0, S_000002734e4eee10;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "parity_bit";
+    .port_info 1 /INPUT 8 "data";
+P_000002734e4eb4f0 .param/l "size" 0 3 1, +C4<00000000000000000000000000001000>;
+v000002734e3d3090_0 .net "data", 7 0, v000002734e4eec70_0;  1 drivers
+v000002734e3d2ee0_0 .net "parity_bit", 0 0, L_000002734e4eae40;  alias, 1 drivers
+L_000002734e4eae40 .reduce/xor v000002734e4eec70_0;
+    .scope S_000002734e4eee10;
+T_0 ;
+    %pushi/vec4 171, 0, 8;
+    %store/vec4 v000002734e4eec70_0, 0, 8;
+    %delay 10, 0;
+    %pushi/vec4 45, 0, 8;
+    %store/vec4 v000002734e4eec70_0, 0, 8;
+    %end;
+    .thread T_0;
+    .scope S_000002734e4eee10;
+T_1 ;
+    %vpi_call 2 14 "$monitor", "Time: %t, Size: %d, Data: %b, Parity: %b", $time, P_000002734e4eb170, v000002734e4eec70_0, v000002734e4e7bf0_0 {0 0 0};
+    %vpi_call 2 15 "$dumpfile", "wv.vcd" {0 0 0};
+    %vpi_call 2 16 "$dumpvars", 32'sb00000000000000000000000000000000, S_000002734e4eee10 {0 0 0};
+    %delay 200, 0;
+    %vpi_call 2 18 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "tb.v";
+    "model.v";

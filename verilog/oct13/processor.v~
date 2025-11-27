@@ -1,0 +1,43 @@
+module simple_processor(instruction, out);
+    input [31:0] instruction;
+    output reg [8:0] out;
+    reg [7:0] opr1, opr2;
+    reg [15:0] opcode;
+
+    function [8:0] decode(input [31:0] instruction);
+        begin
+            opr1 = instruction[7:0];
+            opr2 = instruction[15:8];
+            opcode = instruction[31:16];
+            
+            case (opcode)
+                16'b0000_0000_1000_1000: decode=opr1+opr2;
+                16'b0000_0000_1000_1001: decode=opr1-opr2;
+                default decode='b0;
+            endcase
+        end
+
+    endfunction
+
+    always @(instruction) begin
+        out <= decode(instruction);
+    end
+
+endmodule
+
+module tb;
+    reg [31:0] instruction;
+    wire [8:0] out;
+    simple_processor(.instruction(instruction), .out(out));
+
+    initial begin
+        #5 instruction = 32'b0000_0000_1000_1000_0101_0101_1001_0110;
+    end
+
+    initial begin
+        $monitor("Time: %g, A: %d, B: %d, Operation: %b, Output: %d", $time, instruction[7:0], instruction[15:8], instruction[31:16], out);
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+        #100 $finish;
+    end
+endmodule

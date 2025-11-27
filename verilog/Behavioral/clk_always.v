@@ -1,0 +1,14 @@
+module clock_gen(output reg clock);
+    initial 
+        clock = 1'b0;
+    always 
+        #10 clock = ~clock;
+
+    initial begin
+        $dumpfile("wv.vcd");
+        $dumpvars(0, clock_gen);
+
+        #200;
+        $finish;
+    end
+endmodule

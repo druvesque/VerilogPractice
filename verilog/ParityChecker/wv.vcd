@@ -1,0 +1,36 @@
+$date
+	Thu Sep 25 11:22:10 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb $end
+$var wire 1 ! parity_bit $end
+$var parameter 32 " size $end
+$var reg 8 # data [7:0] $end
+$scope module p1 $end
+$var wire 8 $ data [7:0] $end
+$var wire 1 ! parity_bit $end
+$var parameter 32 % size $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000 %
+b1000 "
+$end
+#0
+$dumpvars
+b10101011 $
+b10101011 #
+1!
+$end
+#10
+0!
+b101101 #
+b101101 $
+#200

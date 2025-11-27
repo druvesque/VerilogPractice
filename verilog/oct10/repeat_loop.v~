@@ -1,0 +1,51 @@
+module tb;
+    //integer var1, i;
+    //initial begin
+    //    var1 = 8;
+    //    i = 0;
+    //    repeat(var1) begin
+    //        i = i+1;
+    //        $display("i = %d", i);
+    //    end
+    //end
+
+    //integer count;
+    //initial begin
+    //    count = 255;
+    //    repeat(255) begin
+    //        $display("Count = %d", count);
+    //        count = count - 2;
+    //    end
+    //end
+
+    parameter cycle = 8;
+    reg clk = 0;
+    reg data_start;
+    reg [7:0] buffer;
+    reg data;
+    integer i;
+
+    initial 
+        forever #10 clk = ~clk;
+
+    always @(posedge clk)
+    begin
+        if(data_start)
+        begin
+            i = 0;
+            repeat(cycle) begin
+                @(posedge clk) buffer[i] = data;
+                i = i+1;
+            end
+        end
+    end
+
+    initial begin
+        #20 data_start = 1;
+        data = 1;
+        $monitor("Time: %g, I: %d Buffer: %p", $time, i, buffer);
+        #200;
+        $finish;
+    end
+
+endmodule

@@ -1,0 +1,20 @@
+module tb;
+parameter size = 8;
+reg [size-1:0] data; 
+wire parity_bit;
+
+parity_checker #(.size(size))p1(parity_bit, data);
+
+initial begin
+data = 8'b10101011; 
+#10 data = 8'b00101101;
+end
+
+initial begin
+$monitor("Time: %t, Size: %d, Data: %b, Parity: %b", $time, size, data, parity_bit);
+$dumpfile("wv.vcd");
+$dumpvars(0, tb);
+#200;
+$finish;
+end
+endmodule

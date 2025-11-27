@@ -1,0 +1,51 @@
+$date
+	Fri Sep 19 12:54:37 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module adder_tb $end
+$var wire 9 ! sum1 [8:0] $end
+$var wire 1 " carry1 $end
+$var parameter 32 # cnt1 $end
+$var parameter 32 $ cnt2 $end
+$var parameter 32 % size1 $end
+$var parameter 32 & size2 $end
+$var reg 9 ' a1 [8:0] $end
+$var reg 9 ( b1 [8:0] $end
+$var reg 1 ) c1 $end
+$scope module adder1 $end
+$var wire 9 * a [8:0] $end
+$var wire 9 + b [8:0] $end
+$var wire 1 ) c_in $end
+$var wire 9 , sum [8:0] $end
+$var wire 1 " c_out $end
+$var parameter 32 - cnt $end
+$var parameter 32 . size $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1001 .
+b1100100 -
+b1000 &
+b1001 %
+b1011 $
+b1100100 #
+$end
+#0
+$dumpvars
+b11101 ,
+b100011 +
+b10111 *
+1)
+b100011 (
+b10111 '
+1"
+b11101 !
+$end
+#300

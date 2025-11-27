@@ -1,0 +1,47 @@
+$date
+	Mon Sep 29 13:33:12 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb $end
+$var wire 1 ! out $end
+$var reg 1 " a $end
+$var reg 1 # b $end
+$scope module x1 $end
+$var wire 1 " a $end
+$var wire 1 # b $end
+$var wire 1 ! out $end
+$var parameter 32 $ fall $end
+$var parameter 32 % no_fall $end
+$var parameter 32 & no_rise $end
+$var parameter 32 ' rise $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1001 '
+b101 &
+b110 %
+b1000 $
+$end
+#0
+$dumpvars
+0#
+0"
+1!
+$end
+#30
+0!
+1#
+#60
+0#
+1"
+#90
+1!
+1#
+#200

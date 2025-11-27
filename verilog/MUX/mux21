@@ -1,0 +1,62 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000002830bdc5e10 .scope module, "tb" "tb" 2 1;
+ .timescale 0 0;
+v000002830bd7aa80_0 .var "cond_expr", 0 0;
+v000002830bd7ab20_0 .var "expr1", 0 0;
+v000002830bd7abc0_0 .var "expr2", 0 0;
+v000002830bd7ac60_0 .net "out", 0 0, L_000002830bd7ad00;  1 drivers
+S_000002830bdc5fa0 .scope module, "m1" "mux_2x1" 2 4, 3 1 0, S_000002830bdc5e10;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "out";
+    .port_info 1 /INPUT 1 "expr1";
+    .port_info 2 /INPUT 1 "expr2";
+    .port_info 3 /INPUT 1 "cond_expr";
+v000002830bd7edb0_0 .net "cond_expr", 0 0, v000002830bd7aa80_0;  1 drivers
+v000002830bd928d0_0 .net "expr1", 0 0, v000002830bd7ab20_0;  1 drivers
+v000002830bdc6130_0 .net "expr2", 0 0, v000002830bd7abc0_0;  1 drivers
+v000002830bdc61d0_0 .net "out", 0 0, L_000002830bd7ad00;  alias, 1 drivers
+L_000002830bd7ad00 .functor MUXZ 1, v000002830bd7abc0_0, v000002830bd7ab20_0, v000002830bd7aa80_0, C4<>;
+    .scope S_000002830bdc5e10;
+T_0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000002830bd7ab20_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000002830bd7abc0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000002830bd7aa80_0, 0, 1;
+    %delay 10, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000002830bd7aa80_0, 0, 1;
+    %end;
+    .thread T_0;
+    .scope S_000002830bdc5e10;
+T_1 ;
+    %vpi_call 2 14 "$monitor", "Time: %t, Expr1: %d, Expr2: %d, Cond_Expr: %d, Output: %d", $time, v000002830bd7ab20_0, v000002830bd7abc0_0, v000002830bd7aa80_0, v000002830bd7ac60_0 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_000002830bdc5e10;
+T_2 ;
+    %vpi_call 2 18 "$dumpfile", "mux.vcd" {0 0 0};
+    %vpi_call 2 19 "$dumpvars", 32'sb00000000000000000000000000000000, S_000002830bdc5e10 {0 0 0};
+    %end;
+    .thread T_2;
+    .scope S_000002830bdc5e10;
+T_3 ;
+    %delay 400, 0;
+    %vpi_call 2 24 "$finish" {0 0 0};
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "mux_tb.v";
+    "mux_dsn.v";

@@ -1,0 +1,45 @@
+module counter(q, data_in, clk, reset, load, up);
+    output reg [3:0] q;
+    input clk, reset, load, up;
+    input [3:0] data_in;
+
+    always @(posedge clk, negedge reset)
+    begin
+        if(!reset)
+            q <= 4'b0000;
+        else if(load)
+            q <= data_in;
+        else if(up)
+            q <= q+1;
+        else 
+            q <= q-1;
+    end
+endmodule
+
+module tb;
+    reg clk = 1;
+    reg reset, load, up;
+    reg [3:0] data_in;
+    wire [3:0] q;
+    counter c1(q, data_in, clk, reset, load, up);
+
+    initial 
+        forever #5 clk = ~clk;
+
+    initial begin
+        #1 reset = 0;
+        #3 reset = 1; data_in = 6;
+        #2 load = 1;
+        #10 load = 0; up = 1;
+    end
+
+    initial begin
+        $monitor("Time: %g, Output: %d", $time, q);
+
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+
+        #100;
+        $finish;
+    end
+endmodule

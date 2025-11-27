@@ -1,0 +1,38 @@
+module misr #(parameter [3:0] poly = 4'b0000) (clk, rst, d_in, d_out);
+    input clk, rst;
+    input [3:0] d_in;
+    output reg [3:0] d_out;
+
+    always @(posedge clk)
+    begin
+        if(!rst)
+            d_out <= 4'b0000;
+        else
+            d_out <= d_in ^ ({1'b0, d_out[0], 1'b0, 1'b0}) ^ {1'b0, d_out[3:1]};
+    end
+endmodule
+
+module tb;
+    reg rst;
+    reg [3:0] d_in;
+    wire [3:0] d_out;
+    reg clk = 0;
+    misr m1(clk, rst, d_in, d_out);
+
+    initial 
+        forever #10 clk = ~clk;
+
+    initial begin
+        #1 rst = 0;
+        #10 rst = 1;
+        d_in = 4'b0011;
+    end
+
+    initial begin
+        $monitor("Time: %g, Random_Number: %d", $time, d_out);
+        $dumpfile("wv.vcd");
+        $dumpvars(0, tb);
+        #500;
+        $finish;
+    end
+endmodule

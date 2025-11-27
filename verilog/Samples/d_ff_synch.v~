@@ -1,0 +1,25 @@
+module d_ff(q, clk, d, resetn);
+input d, clk, resetn;
+output reg q;
+
+always @(posedge clk)
+    if (!resetn)
+        q <= 0;
+    else 
+        q <= d;
+endmodule
+
+module tb;
+reg clk = 0;
+reg d, resetn;
+wire q;
+d_ff d1(q, clk, d, resetn);
+
+initial begin
+    
+end
+
+initial begin
+
+end
+endmodule
